@@ -1,0 +1,17 @@
+# Production profile overrides
+spring:
+  jpa:
+    show-sql: false
+  
+  flyway:
+    clean-on-validation-error: false
+
+logging:
+  level:
+    com.codebaseqa: INFO
+    org.springframework.web: WARN
+    org.springframework.security: WARN
+
+server:
+  tomcat:
+    connection-timeout: 120000  # 2 minutes for SSE connections
