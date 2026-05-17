@@ -49,25 +49,28 @@ spring:
 
 app:
   jwt:
-    secret: your-super-secret-key-minimum-32-characters-long-change-this-in-production
+    secret: ${JWT_SECRET:your-super-secret-key-minimum-32-characters-long-change-this-in-production}
     expiration-ms: 86400000  # 24 hours
   
   github:
-    client-id: your-client-id
-    client-secret: your-client-secret
-    redirect-uri: http://localhost:8080/api/auth/github/callback
+    client-id: ${GITHUB_CLIENT_ID:your-client-id}
+    client-secret: ${GITHUB_CLIENT_SECRET:your-client-secret}
+    redirect-uri: ${GITHUB_REDIRECT_URI:http://localhost:8080/api/auth/github/callback}
   
   gemini:
-    api-key: your-gemini-api-key
+    api-key: ${GEMINI_API_KEY:your-gemini-api-key}
     embedding-model: text-embedding-004
     chat-model: gemini-1.5-flash
     base-url: https://generativelanguage.googleapis.com
   
   aws:
-    region: us-east-1
+    region: ${AWS_REGION:eu-north-1}
     sqs:
-      queue-url: 
-      dlq-url:
+      queue-url: ${SQS_QUEUE_URL:}
+      dlq-url: ${SQS_DLQ_URL:}
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID:}
+      secret-key: ${AWS_SECRET_ACCESS_KEY:}
   
   rate-limit:
     queries-per-hour: 20

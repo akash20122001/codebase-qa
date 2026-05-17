@@ -20,7 +20,7 @@ public class User {
     private UUID id;
 
     @Column(name = "github_id", unique = true, nullable = false)
-    private Long githubId;
+    private String githubId;
 
     @Column(nullable = false)
     private String username;

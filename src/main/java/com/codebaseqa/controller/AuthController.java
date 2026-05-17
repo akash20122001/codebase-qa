@@ -32,7 +32,8 @@ public class AuthController {
      */
     @GetMapping("/github")
     public RedirectView redirectToGitHub() {
-        String scope = "repo,read:user";
+        // Include user:email scope to access private email addresses
+        String scope = "repo,read:user,user:email";
         String authUrl = String.format(
             "https://github.com/login/oauth/authorize?client_id=%s&redirect_uri=%s&scope=%s",
             githubClientId,
@@ -77,8 +78,8 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(Authentication authentication) {
         try {
-            String userId = (String) authentication.getPrincipal();
-            User user = authService.getCurrentUser(userId);
+            // The principal is now a User object (not a String)
+            User user = (User) authentication.getPrincipal();
             
             return ResponseEntity.ok(Map.of(
                 "id", user.getId(),

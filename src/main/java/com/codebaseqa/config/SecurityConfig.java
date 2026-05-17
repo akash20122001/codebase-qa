@@ -33,7 +33,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/github", "/api/auth/github/callback").permitAll()
+                .requestMatchers("/api/auth/github", "/api/auth/github/", "/api/auth/github/callback").permitAll()
                 .requestMatchers("/api/repos/webhook/github").permitAll()
                 .requestMatchers("/actuator/health").permitAll()
                 .anyRequest().authenticated()
