@@ -85,6 +85,9 @@ app:
   cors:
     allowed-origins: http://localhost:5173
 
+  frontend:
+    url: http://localhost:5173
+
 logging:
   level:
     com.codebaseqa: INFO

@@ -1,5 +1,6 @@
 package com.codebaseqa.service;
 
+import com.codebaseqa.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -19,9 +20,23 @@ public class JwtService {
     @Value("${app.jwt.expiration-ms}")
     private long expirationMs;
 
+    public String generateToken(User user) {
+        return Jwts.builder()
+            .subject(user.getId().toString())
+            .claim("userId", user.getId().toString())
+            .claim("username", user.getUsername())
+            .claim("email", user.getEmail())
+            .claim("avatarUrl", user.getAvatarUrl())
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + expirationMs))
+            .signWith(getSigningKey())
+            .compact();
+    }
+
     public String generateToken(String userId) {
         return Jwts.builder()
             .subject(userId)
+            .claim("userId", userId)
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + expirationMs))
             .signWith(getSigningKey())

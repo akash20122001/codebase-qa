@@ -55,7 +55,7 @@ public class AuthService {
                 .build()));
 
         // 4. Generate JWT
-        String jwt = jwtService.generateToken(user.getId().toString());
+        String jwt = jwtService.generateToken(user);
 
         log.info("User authenticated: {} ({})", user.getUsername(), user.getId());
         return new AuthResponse(jwt, user);
